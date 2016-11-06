@@ -1,15 +1,79 @@
-<h1>Hello World</h1>
 <div ng-controller='UserRegForm as usf' class="container">
-	<div class="form-group">
-		<span>First Name</span>
-		<input type="text" placeholder="Joe" class="form-control" ng-model="usf.firstName">
-	</div>
-	<!-- <div class="form-group"> -->
-		<!-- <button class="btn btn-primary" ng-click="search.showItems('chicken');">Narrow It Down For Me!</button> -->
-	<!-- </div> -->
-	<!-- <hr> -->
-	<!-- <div class="row"> -->
-		<!-- found-items should be implemented as a component -->
-		<!-- <found-items found="search.found" on-remove="search.removeItem(index)"></found-items> -->
-	<!-- </div> -->
-</div> <!-- end of controller scope -->
+	
+	<form name="regForm">
+		<div class="form-group">
+			<span class="form-label">First Name</span>
+			<input
+				type="text"
+				placeholder="Joe"
+				class="form-control"
+				ng-model="usf.firstName"
+				name="firstName"
+				required
+				minlength="3"
+				ng-maxlength="20">
+			<span ng-if="( regForm.firstName.$error.minlength || regForm.firstName.$error.required ) && regForm.firstName.$touched">First name must be greater than 3 characters</span>
+			<span ng-if="regForm.firstName.$error.maxlength && regForm.firstName.$touched">First name must not be longer than 20 characters</span>				
+		</div>
+		<div class="form-group">
+			<span>Last Name</span>
+			<input
+				type="text"
+				name="lastName"
+				placeholder="Smith"
+				class="form-control"
+				ng-model="usf.lastName"
+				required
+				minlength="3"
+				ng-maxlength="20" >
+			<span ng-if="( regForm.lastName.$error.minlength || regForm.lastName.$error.required ) && regForm.lastName.$touched">Last name must be greater than 3 characters</span>
+			<span ng-if="regForm.lastName.$error.maxlength && regForm.lastName.$touched">Last name must not be longer than 20 characters</span>
+		</div>
+		<div class="form-group">
+			<span>Email</span>
+			<input
+				type="email"
+				name="email"
+				placeholder="joes@gmail.com"
+				required
+				class="form-control"
+				ng-model="usf.email">
+			<span ng-if="regForm.email.$invalid && regForm.email.$touched">Must be a valid email address: handle@domain format</span>
+		</div>
+		<div class="form-group">
+			<span>Phone</span>
+			<input
+				type="text"
+				name="phone"
+				placeholder="Joe"
+				class="form-control"
+				ng-model="usf.phone"
+				pattern="(\d{3})-(\d{3})-(\d{4})">
+			<span ng-if="regForm.phone.$invalid && regForm.phone.$touched">Phone must be in the format ###-###-####.</span>
+		</div>
+		<div class="form-group">
+			<span>Favorite Dish</span>
+			<input
+				type="text"
+				name="favoriteDish"
+				placeholder="AA"
+				class="form-control"
+				ng-model="usf.favoriteDish"
+				required
+				minlength="2"
+				ng-maxlength="20" >
+			<span ng-if="( regForm.lastName.$error.minlength || regForm.lastName.$error.required ) && regForm.lastName.$touched">Favorite dish must be greater than 2 characters</span>
+			<span ng-if="regForm.lastName.$error.maxlength && regForm.lastName.$touched">Favorite dish must not be longer than 20 characters</span>
+			<span ng-if="usf.favoriteDishValidated == false">
+			No such menu number exists
+			</span>
+		</div>
+		<hr>
+		<button
+			class="btn btn-primary"
+			ng-disabled="regForm.$invalid"
+			ng-click="usf.submit();">
+			Submit
+		</button>
+	</form>
+</div>
