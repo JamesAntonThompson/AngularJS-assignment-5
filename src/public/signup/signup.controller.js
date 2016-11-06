@@ -4,9 +4,8 @@
 angular.module('public')
 .controller('UserRegForm', UserRegForm);
 
-UserRegForm.$inject = ['MenuService'];
-// function UserRegForm(menuCategories) {
-function UserRegForm(MenuService) {
+UserRegForm.$inject = ['MenuService', 'RegisterService'];
+function UserRegForm(MenuService, RegisterService) {
 	var $ctrl = this;
 	$ctrl.firstName = '';
 	$ctrl.lastName = '';
@@ -20,24 +19,12 @@ function UserRegForm(MenuService) {
 		var promise = MenuService.validateMenuItem($ctrl.favoriteDish);
 		promise.then( function(response) {
 				if ( response.status == 200 ) {
-					$ctrl.favoriteDishValidated = true;					
+					$ctrl.favoriteDishValidated = true;
+					RegisterService.addReg( $ctrl.firstName, $ctrl.lastName, $ctrl.email, $ctrl.phone, $ctrl.favoriteDish );
 				} else {
 					$ctrl.favoriteDishValidated = false;					
 				}
 			});
-				// console.log(response);
-			// }, function(response) {
-			// 	console.log(response);
-			// });
-		// $ctrl.favoriteDishValidated = MenuService.validateMenuItem($ctrl.favoriteDish)
-		// console.log($ctrl.favoriteDishValidated)
-		// if (MenuService.validateMenuItem($ctrl.favoriteDish) == true ) {
-		// 	console.log('dish valid');
-		// 	$ctrl.favoriteDishValidated = true
-		// } else {
-		// 	console.log('dish invalid');
-		// 	$ctrl.favoriteDishValidated = false
-		// }
 	}
 }
 

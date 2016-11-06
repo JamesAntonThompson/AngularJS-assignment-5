@@ -1,0 +1,35 @@
+<div ng-controller='MyInfo as $ctrl' class="container">
+	<div ng-if="$ctrl.hasRegUser == true">
+		<h1>Your Details</h1>
+		<table class="table">
+			<tr>
+				<td>First name</td>
+				<td>{{ $ctrl.regUser.firstName }}</td>
+			</tr>
+			<tr>
+				<td>Last name</td>
+				<td>{{ $ctrl.regUser.lastName }}</td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td>{{ $ctrl.regUser.email }}</td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td>{{ $ctrl.regUser.phone }}</td>
+			</tr>
+			<tr>
+				<td>Favorite Dish</td>
+				<td>{{ $ctrl.regUser.favorite }}<br>
+					{{ $ctrl.favoriteName }}<br>
+					{{ $ctrl.favoriteDesc }}<br>
+					<img width="200" height="200" ng-src="images/menu/{{$ctrl.favoriteCategory}}/{{$ctrl.favoriteCategory}}.jpg" alt="{{$ctrl.favoriteName}}">
+				</td>
+			</tr>		
+		</table>		
+	</div>
+	<div ng-if="$ctrl.hasRegUser == false">
+		<h1>Not Signed Up Yet. <span><a ui-sref="signUp">Sign up Now!</a></span></h1>		
+	</div>
+
+</div>
